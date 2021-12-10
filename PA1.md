@@ -154,6 +154,19 @@ the summarized data frame total_steps (which is grouped by date):
 ```r
 mean_number_of_steps <- mean(total_steps$total.steps)
 median_number_of_steps <- median(total_steps$total.steps)
+print(paste0("Mean # of steps: ", mean_number_of_steps))
+```
+
+```
+## [1] "Mean # of steps: 10766.1886792453"
+```
+
+```r
+print(paste0("Median # of steps: ", median_number_of_steps))
+```
+
+```
+## [1] "Median # of steps: 10765"
 ```
 
 ## What is the average daily activity pattern?
@@ -172,6 +185,7 @@ ggplot(activity_by_interval, mapping = aes(x = interval, y = mean.steps.in.inter
 ```
 
 ![](PA1_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+  
 Note that the Interval ID is not simply proportional to time of day, due to the fact that it jumps from ..55 to ..100 every hour.
 
 The maximum mean step count and the interval in which it occurs can be found as follows:
@@ -179,6 +193,11 @@ The maximum mean step count and the interval in which it occurs can be found as 
 ```r
 max_mean_steps <- max(activity_by_interval$mean.steps.in.interval)
 interval_with_max_steps <- with(activity_by_interval, interval[which.max(mean.steps.in.interval)])
+print(interval_with_max_steps)
+```
+
+```
+## [1] 835
 ```
 
 
@@ -210,6 +229,7 @@ ggplot(total_steps_imputed) + geom_histogram(mapping = aes(x = total.steps), bin
 ```
 
 ![](PA1_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+
 Again, we can compute the mean and median of the total step counts:
 
 ```r
@@ -290,3 +310,6 @@ dat %>% group_by(date) %>% summarize(type.of.day=first(type), total.steps = sum(
 ## 1 Weekday                8820.
 ## 2 Weekend               10856.
 ```
+
+
+It looks like the user tends to take more steps on the weekends, and their activity begins later in the day (that is, at a later interval ID). The user also appears to abruptly taking steps at interval 540-550 during the week, which suggests a ~5:45 AM wake up time. The weekend appears to show a later and more varied wake up time.
